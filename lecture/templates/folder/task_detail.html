@@ -1,0 +1,262 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Lecturer App</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'fontawesome/css/all.min.css' %}">
+
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			outline: none;
+		}
+
+		body{
+			background-color: rgb(155, 6, 31);
+		}
+
+		.table-container{
+			padding: 0 10%;
+			margin: 40px auto 0;
+		}
+
+		.heading{
+			font-size: 35px;
+			text-align: center;
+			color: white;
+			margin-bottom: 40px;
+		}
+
+		.table{
+			width: 100%;
+			border-collapse: collapse;
+			box-shadow: 0 5px 20px rgba(0, 0, 0, 1.2);
+		}
+
+		.table th{
+			background-color: lightblue;
+			color: black;
+			border: 1px solid darkgray;
+			text-align: left;
+			padding: 4px;
+
+		}
+
+		.table thead tr th{
+			font-size: 14px;
+			font-weight: medium;
+			letter-spacing: 0.35px;
+			color: black;
+			opacity: 1;
+			padding: 2px;
+/*			vertical-align: top;*/
+			border: 1px solid darkgray;
+		}
+
+		.table tbody tr td{
+			font-size: 14px;
+			font-weight: normal;
+			background-color: black;
+			letter-spacing: 0.35px;
+			color: white;
+			opacity: 1;
+			padding: 8px;
+			border: 1px solid darkgray;
+		}
+
+		.table tbody tr td .bttn{
+			width: 130px;
+			text-decoration: none;
+			line-height: 35px;
+			display: inline-block;
+			color: black;
+			background-color: white;
+			font-weight: medium;
+			text-align: center;
+			vertical-align: middle;
+			user-select: none;
+			border: 1px solid transparent;
+			font-size: 14px;
+			opacity: 1;
+		}
+
+		.table input{
+	        height: 30px;
+	        width: 80%;
+	        padding: 20px;
+	        border-radius: 5px;
+	        border: 1px solid black;
+	        outline: none;
+	        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
+	        font-size: 11px;
+
+
+    }
+
+.table input:is(:focus, :valid){
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+
+		@media(max-width:768px){
+			.table th{
+				display: block;
+			}
+
+			.table,  .table tbody, .table tr, .table td {
+				display: block;
+				width: 100%;
+			}
+
+			.table tr{
+				margin-bottom: 15px;
+			}
+
+			.table tbody tr td{
+				text-align: left;
+				padding-left: 5%;
+				position: relative;
+			}
+
+			.table td:before{
+				content: attr(data-label);
+				position: absolute;
+				left: 0;
+				width: 50%;
+				padding-left: 15px;
+				font-weight: 600;
+				font-size: 14px;
+				text-align: left;
+			}
+		}
+	</style>
+
+</head>
+
+<body>
+
+
+	<div class="table-container">
+		{% if task.task == 'Assignment' %}
+		<h1 class="heading">Assignment</h1>
+		{% endif %}
+
+		{% if task.task == 'Handout' %}
+		<h1 class="heading">Handout</h1>
+		{% endif%}
+
+		{% if task.task == 'Quiz' %}
+		<h1 class="heading">Quiz</h1>
+		{% endif %}
+		<table class="table">
+			<tbody>
+				<tr>
+					<th>Date</th>
+					<td>{{task.date}}</td>
+				</tr>
+
+				<tr>
+					<th>Programme Type</th>
+					<td>{{task.programme}}</td>
+				</tr>
+
+				<tr>
+					<th>Course Year</th>
+					<td>Year {{task.year}}</td>
+				</tr>
+
+				<tr>
+					<th>File</th>
+					<td><a href="{{task.upload.url}}" class="bttn">View File</a></td>
+				</tr>
+				{% if task.task == 'Handout' %}
+				<tr>
+					<th>#</th>
+					<td>Download the handout and study</td>
+				</tr>
+
+				{% endif %}
+
+				{% if task.task == 'Assignment' %}
+				<tr>
+					<th>Answer</th>
+					<td>Fill Requirements and Submit Answers Below</td>
+				</tr>
+
+				<form method = "POST" enctype="multipart/form-data">
+					{% csrf_token %}
+                    {{form.errors}}
+				<tr>
+					<th>Name</th>
+					<td>{{form.name}}</td>
+				</tr>
+
+				<tr>
+					<th>Registration Number</th>
+					<td>{{form.reg_number}}</td>
+				</tr>
+
+				<tr>
+					<th>Upload</th>
+					<td>{{form.ass_upload}}</td>
+				</tr>
+
+				<tr>
+					<th>#</th>
+					<td><button type="submit" class="bttn" name="assignment" style="cursor: pointer;">Submit</button></td>
+				</tr>
+				</form>
+				{% endif %}
+
+				{% if task.task == 'Quiz' %}
+				<tr>
+					<th>Answer</th>
+					<td>Fill Requirements and Submit Answers Below</td>
+				</tr>
+
+				<form method = "POST" enctype="multipart/form-data">
+					{% csrf_token %}
+                    {{form_q.errors}}
+				<tr>
+					<th>Name</th>
+					<td>{{form_q.name}}</td>
+				</tr>
+
+				<tr>
+					<th>Registration Number</th>
+					<td>{{form_q.reg_number}}</td>
+				</tr>
+
+				<tr>
+					<th>Upload</th>
+					<td>{{form_q.quiz_upload}}</td>
+				</tr>
+
+				<tr>
+					<th>#</th>
+					<td><button type="submit" class="bttn" name="quiz" style="cursor: pointer;">Submit</button></td>
+				</tr>
+				</form>
+				{% endif %}
+			</tbody>
+
+			
+		</table>
+	</div>
+</body>
+
+<script src="{% static 'js/jquery.js' %}"></script>
+<script type="text/javascript">
+	$("#id_name").attr("placeholder", "Type your Full Name..");
+    $("#id_reg_number").attr("placeholder", "Type your Registration Number..");
+    
+    
+</script>
+
+</html>
+
+

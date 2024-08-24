@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecturer App</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/swiper-bundle.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'fontawesome/css/all.min.css' %}">
+
+    <style type="text/css">
+
+    *{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	text-decoration: none;
+	border: none;
+	outline: none;
+	scroll-behavior: smooth;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+	background: yellowgreen;
+}
+
+.container{
+	width: 80%;
+	justify-content: center;
+	align-items: center;
+	box-shadow: 0 15px 20px rgba(0, 0, 0, 0.6);
+	padding: 38px;
+	margin: 28px;
+	left: 5%;
+	border-radius: 8px;
+	position: relative;
+}
+
+.items{
+	margin: 10px;
+}
+
+.btn{
+    font-size: 12px;
+    background: #1E90FF;
+    width: 100px;
+    padding: 8px 13px;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+    -webkit-transition-duration:0.3s;
+    transition-duration:0.3s;
+    -webkit-transition-property:box-shadow, transform;
+    transition-property:box-shadow, transform;
+
+}
+
+input{
+        height: 40px;
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid black;
+        outline: none;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
+        font-size: 11px;
+
+
+    }
+
+input:is(:focus, :valid){
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+
+</style>
+</head>
+<body>
+	<div class="container">
+	<div style="align-items: center; justify-content: center; margin: 40px; padding: 10px 50px; left: 20px;">
+	<form method="POST">
+	{% csrf_token %}
+	{{form.errors}}
+	{{form.score}}
+
+	<input type="submit" name="" value="Score" class="btn">
+	</div>
+	</form>
+	
+	</div>
+</body>
+</html>
+

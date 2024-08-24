@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scratch Card</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/auth.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'fontawesome/css/all.min.css' %}">
+</head>
+
+<body>
+<div class="container">
+    <div class="forms">
+        <div class="form login">
+            <span class="title">Welcome !!!</span>
+            <form action="/" method="POST" autocomplete="off">
+                {% csrf_token %}
+                <div class="input-field">
+                <input type="number" id="reg_number" name="reg_number" required>
+                <i class="fa fa-user"></i>
+            </div>
+
+            <div class="input-field">
+                <input type="number" id="pin" name="pin" required>
+                <i class="fa fa-lock icon"></i>
+            </div>
+
+                <div class="input-field button">
+                <input type="submit" value="Login">
+            </div>
+            </div>  
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+
+
+
+
+<script src="{% static 'js/jquery.js' %}"></script>
+<script>
+const container = document.querySelector(".container"),
+    PwShowHide = document.querySelectorAll(".showHidePw"),
+    pwFields = document.querySelectorAll("#id_password"),
+    signUp = document.querySelector(".signup-link"),
+    login = document.querySelector(".login-link");
+
+        PwShowHide.forEach(eyeIcon=>{
+            eyeIcon.addEventListener("click",()=>{
+                pwFields.forEach(pwField=>{
+                    if(pwField.type === 'id_password'){
+                        pwField.type = "text";
+
+                        PwShowHide.forEach(icon =>{
+                            icon.classList.replace('fa-eye-slash', 'fa-eye');
+                        })
+                    }else{
+                        pwField.type = 'id_password';
+
+                        PwShowHide.forEach(icon =>{
+                            icon.classList.replace('fa-eye', 'fa-eye-slash');
+                        })
+                    }
+                })
+            })
+        })
+
+
+        $("#pin").attr("placeholder", "Input the scracth card pin..");
+        $("#reg_number").attr("placeholder", "Your registration number..");
+               
+</script>
+</html>

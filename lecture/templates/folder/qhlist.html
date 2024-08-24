@@ -1,0 +1,237 @@
+{% load static %} 
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecturer App</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/swiper-bundle.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'fontawesome/css/all.min.css' %}">
+
+    <style type="text/css">
+
+    *{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	text-decoration: none;
+	border: none;
+	outline: none;
+	scroll-behavior: smooth;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+	background: yellowgreen;
+}
+
+.container{
+	width: 80%;
+	justify-content: center;
+	align-items: center;
+	box-shadow: 0 15px 20px rgba(0, 0, 0, 0.6);
+	padding: 38px;
+	margin: 28px;
+	left: 5%;
+	border-radius: 8px;
+	position: relative;
+}
+
+.items{
+	margin: 10px;
+}
+
+.btn{
+    font-size: 12px;
+    background: #1E90FF;
+    width: 100px;
+    padding: 8px 13px;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+    -webkit-transition-duration:0.3s;
+    transition-duration:0.3s;
+    -webkit-transition-property:box-shadow, transform;
+    transition-property:box-shadow, transform;
+
+}
+
+input{
+        height: 40px;
+        width: 40%;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid black;
+        outline: none;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
+        font-size: 11px;
+
+
+    }
+
+input:is(:focus, :valid){
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+select{
+   height: 40px;
+   width: 100%;
+   padding: 10px;
+   border-radius: 5px;
+   border: 1px solid black;
+   outline: none;
+   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
+   font-size: 11px;
+
+}
+
+
+        .table-container{
+            margin: 1px auto 0;
+        }
+
+        .table{
+            width: 100%;
+            border-collapse: collapse;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 1.2);
+        }
+
+        .table thead{
+            background: bisque;
+
+        }
+
+        .table thead tr th{
+            font-size: 14px;
+            font-weight: medium;
+            letter-spacing: 0.35px;
+            color: black;
+            opacity: 1;
+            padding: 12px;
+            vertical-align: top;
+            border: 1px solid darkgray;
+        }
+
+        .table tbody tr td{
+            font-size: 14px;
+            font-weight: normal;
+            background-color: black;
+            letter-spacing: 0.35px;
+            color: white;
+            opacity: 1;
+            padding: 8px;
+            border: 1px solid darkgray;
+        }
+
+
+        @media(max-width:768px){
+            .table thead{
+                display: none;
+            }
+
+            .table,  .table tbody, .table tr, .table td {
+                display: block;
+                width: 100%;
+            }
+
+            .table tr{
+                margin-bottom: 15px;
+            }
+
+            .table tbody tr td{
+                text-align: right;
+                padding-left: 50%;
+                position: relative;
+            }
+
+            .table td:before{
+                content: attr(data-label);
+                position: absolute;
+                left: 0;
+                width: 50%;
+                padding-left: 15px;
+                font-weight: 600;
+                font-size: 14px;
+                text-align: left;
+            }
+        }
+
+
+</style>
+</head>
+<body>
+
+	<div class="container">
+
+    <div class="table-container">
+        <center>
+{% if messages %}
+        {% for message in messages %}
+      <div class="alert alert-{{message.tag}}">{{message}}</div>
+        {% endfor %}
+        {% endif %}
+</center>
+
+    <table class="table">
+        <thead>
+            <tr>
+            <th>Name</th>
+            <th>Programme</th>
+            <th>Year</th>
+            <th>Task</th>
+            <th>View Assignment</th>
+        </tr>
+        </thead>
+
+        {% if assi %}
+        {% for ass in assi %}
+        <tbody>
+        <tr>
+            <td data-label ="Name">{{ass.user.get_full_name}}</td>
+            <td data-label ="Programme">{{ass.programme}}</td>
+            <td data-label ="Year">{{ass.year}}</a></td>
+            
+            <td data-label ="Task">{{ass.task}}</a></td>
+
+            <td data-label ="View Assignment"><a href="{{ass.upload.url}}" class="btn">View Assignment</a></td>
+        </tr>
+
+    </tbody>
+    {% endfor %}
+    {% else %}
+    <tbody>
+        <tr>
+            <td data-label = "Name" >Empty</td>
+            <td data-label = "Registration Number">Empty</td>
+            <td data-label = "View Assignment">Empty</a></td>
+            
+            <td data-label = "Score Assignment">Empty</a></td>
+        </tr>
+    </tbody>
+    {% endif %}
+</table>
+
+<br><br>
+
+
+<div style=" margin:10px; float:right;">
+        <p ><a href="{% url 'lecture:lv' %}" class="btn">Back</a></p>
+    </div>
+
+</div>
+</div>	
+</body>
+<script src="{% static 'js/jquery.js' %}"></script>
+<script type="text/javascript">
+
+    var Timing = 2000;
+    setTimeout(function(){
+        $(".alert").fadeOut('fast');
+    }, Timing);
+
+</script>
+</html>
+

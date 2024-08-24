@@ -1,0 +1,109 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Lecturer App</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'fontawesome/css/all.min.css' %}">
+
+</head>
+
+<body>
+	<div class="container">
+		<form action="" method="POST" enctype="multipart/form-data">
+			{% csrf_token %}
+			{{form.errors}}
+			<h2>Lecturer Registration</h2>
+			<div class="content">
+
+				<div class="input-box">
+					<label for="username">Username</label>
+					{{form.username}}
+				</div>
+
+
+				<div class="input-box">
+					<label for="First Name">First Name</label>
+					{{form.first_name}}
+				</div>
+
+
+				<div class="input-box">
+					<label for="Last Name">Last Name</label>
+					{{form.last_name}}
+				</div>
+
+
+				<div class="input-box">
+					<label for="phone">Phone Number</label>
+					{{more_form.phone}}
+				</div>
+
+
+
+				<div class="input-box">
+					<label for="Last Name">Email Address</label>
+					{{form.email}}
+				</div>
+
+				<div class="input-box">
+					<label for="password">Password</label>
+					{{form.password1}}
+				</div>
+
+
+				<div class="input-box">
+					<label for="password">Confirm Password</label>
+					{{form.password2}}
+				</div>
+			</div>
+
+			<div class="input-box" style="display: none;">
+					<label for="phone">Phone Number</label>
+					{{more_form.user}}
+				</div>
+
+			<div class="input-box">
+					<label for="upload">Current Qualification</label>
+					{{more_form.degree}}
+				</div>
+
+
+				<div class="input-box">
+					<label for="upload">Upload Image</label>
+					{{more_form.pics}}
+				</div>
+
+				<div class="input-box">
+					<label for="gender">Gender</label>
+					{{more_form.gender}}
+				</div>
+
+			
+			<div class="alerts">
+				<p>By clicking Sign Up, you have agree <a href="#">Terms and Privacy Policies</a>.. Click <a href="{% url 'lecture:login' %}">Login</a> if already registered</p>
+			</div>
+
+			<div class="button-container">
+				<button>Register</button>
+			</div>
+		</form>
+	</div>
+
+</body>
+
+<script src="{% static 'js/jquery.js' %}"></script>
+<script type="text/javascript">
+	$("#id_username").attr("placeholder", "Type your Username..");
+    $("#id_first_name").attr("placeholder", "Type your First Name..");
+    $("#id_last_name").attr("placeholder", "Type your Last Name..");
+    $("#id_email").attr("placeholder", "Type your Email Address..");
+    $("#id_password1").attr("placeholder", "Type your Password..");
+    $("#id_password2").attr("placeholder", "Repeat Password..");
+    $("#id_phone").attr("placeholder", "Type your Phone Number..");
+    
+</script>
+
+</html>

@@ -1,0 +1,14 @@
+asgiref==3.8.1
+backports.zoneinfo==0.2.1
+chardet==5.2.0
+Django==4.2.11
+django-countries==7.6.1
+django-static-fontawesome==6.4.2.1
+pillow==10.2.0
+python-http-client==3.3.7
+reportlab==4.2.0
+sendgrid==6.11.0
+sqlparse==0.4.4
+starkbank-ecdsa==2.2.0
+typing_extensions==4.10.0
+tzdata==2024.1

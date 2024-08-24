@@ -1,0 +1,182 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Lecturer App</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'fontawesome/css/all.min.css' %}">
+<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			outline: none;
+		}
+
+		body{
+			background-color: rgb(155, 6, 31);
+		}
+
+		.table-container{
+			padding: 0 10%;
+			margin: 40px auto 0;
+		}
+
+		.heading{
+			font-size: 35px;
+			text-align: center;
+			color: white;
+			margin-bottom: 40px;
+		}
+
+		.table-container{
+			padding: 0 10%;
+			margin: 40px auto 0;
+		}
+
+		.table{
+			width: 100%;
+			border-collapse: collapse;
+			box-shadow: 0 5px 20px rgba(0, 0, 0, 1.2);
+		}
+
+		.table thead{
+			background: bisque;
+
+		}
+
+		.table thead tr th{
+			font-size: 14px;
+			font-weight: medium;
+			letter-spacing: 0.35px;
+			color: black;
+			opacity: 1;
+			padding: 12px;
+			vertical-align: top;
+			border: 1px solid darkgray;
+		}
+
+		.table tbody tr td{
+			font-size: 14px;
+			font-weight: normal;
+			background-color: black;
+			letter-spacing: 0.35px;
+			color: white;
+			opacity: 1;
+			padding: 8px;
+			border: 1px solid darkgray;
+		}
+
+
+		@media(max-width:768px){
+			.table thead{
+				display: none;
+			}
+
+			.table,  .table tbody, .table tr, .table td {
+				display: block;
+				width: 100%;
+			}
+
+			.table tr{
+				margin-bottom: 15px;
+			}
+
+			.table tbody tr td{
+				text-align: right;
+				padding-left: 50%;
+				position: relative;
+			}
+
+			.table td:before{
+				content: attr(data-label);
+				position: absolute;
+				left: 0;
+				width: 50%;
+				padding-left: 15px;
+				font-weight: 600;
+				font-size: 14px;
+				text-align: left;
+			}
+		}
+
+	.btn{
+    font-size: 12px;
+    background: #1E90FF;
+    width: 100%;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+    -webkit-transition-duration:0.3s;
+    transition-duration:0.3s;
+    -webkit-transition-property:box-shadow, transform;
+    transition-property:box-shadow, transform;
+
+}
+
+	</style>
+</head>
+
+<body> 
+
+	<div class="table-container">
+	<h1 class="heading">Assignment and Quiz Records</h1>
+
+	<table class="table">
+		<thead>
+			<tr>
+			<th>Name</th>
+			<th>Registration Number</th>
+			<th>Assignment Score</th>
+			<th>Quiz Score</th>
+			<th>Total</th>
+			<th>Grade</th>
+		</tr>
+		</thead>
+
+	
+		<tbody>
+			{% for data in combine %}
+			
+			<tr>
+			
+			<td data-label = "Name">{{data.ass_name}}</td>
+
+			<td data-label = "Registration Number">{{data.ass_reg_number}}</td>
+
+
+			<td data-label = "Assignment Score">{{data.ass_score}}</td>
+			
+			<td data-label = "Quiz Score">{{data.score}}</td>
+
+			
+			
+			
+			<td data-label = "Total">{{data.total_score}}</td>
+			<td data-label = "Grade">{{data.grade}}</td>
+		</tr>
+		
+		{% endfor %}
+	</tbody>
+
+</table></br>
+
+<div style="float: right;">
+<p class="btn"><a href="{% url 'lecture:send' %}">Email Result</a></p>
+</div>
+</div>
+
+</body>
+<script src="{% static 'js/jquery.js' %}"></script>
+<script type="text/javascript">
+	$("#id_name").attr("placeholder", "Type your Full Name..");
+    $("#id_reg_number").attr("placeholder", "Type your Registration Number..");
+</script>
+
+</html>
+

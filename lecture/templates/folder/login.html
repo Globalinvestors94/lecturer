@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/auth.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'fontawesome/css/all.min.css' %}">
+</head>
+
+<body>
+<div class="container">
+    <div class="forms">
+        <div class="form login">
+            <span class="title">Login</span>
+            <form action="#" method="POST" autocomplete="off">
+                {% csrf_token %}
+                {{form.errors}}
+                <div class="input-field">
+                {{form.username}}
+                <!-- <input type="text" placeholder="Enter your Email" required> -->
+                <i class="fa fa-user"></i>
+            </div>
+
+            <div class="input-field">
+                <!-- <input type="password" class="password" placeholder="Enter your Password" required> -->
+                {{form.password}}
+                <i class="fa fa-lock icon"></i>
+                <i class="fa fa-eye-slash showHidePw"></i>
+            </div>
+
+            <div class="checkbox-text">
+                <div class="checkbox-content">
+                    {{form.remember_me}}
+                    <label for="logCheck" class="text">Remember Me</label>
+                </div>
+
+                {% if request.GET.next %}
+                <input type="hidden" name="next" value="{{request.GET.next}}">
+                {% endif %}
+                
+            </div>
+
+
+
+            <div class="input-field button">
+                <input type="submit" value="Login">
+            </div>
+            
+            </form><br>
+            <p>Registered? if lecturer is not registered click <a href="{% url 'lecture:lecReg' %}">Register</a></p>
+        </div>
+    </div>
+</div>
+</body>
+
+<script src="{% static 'js/jquery.js' %}"></script>
+<script>
+const container = document.querySelector(".container"),
+    PwShowHide = document.querySelectorAll(".showHidePw"),
+    pwFields = document.querySelectorAll("#id_password"),
+    signUp = document.querySelector(".signup-link"),
+    login = document.querySelector(".login-link");
+
+        PwShowHide.forEach(eyeIcon=>{
+            eyeIcon.addEventListener("click",()=>{
+                pwFields.forEach(pwField=>{
+                    if(pwField.type === 'id_password'){
+                        pwField.type = "text";
+
+                        PwShowHide.forEach(icon =>{
+                            icon.classList.replace('fa-eye-slash', 'fa-eye');
+                        })
+                    }else{
+                        pwField.type = 'id_password';
+
+                        PwShowHide.forEach(icon =>{
+                            icon.classList.replace('fa-eye', 'fa-eye-slash');
+                        })
+                    }
+                })
+            })
+        })
+
+
+        $("#id_username").attr("placeholder", "Type your Username..");
+        $("#id_password").attr("placeholder", "Type your Password..");
+               
+</script>
+</html>

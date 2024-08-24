@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecturer App</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/front.css' %}">
+    
+    <link rel="stylesheet" type="text/css" href="{% static 'fontawesome/css/all.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<nav><br>
+
+    <!-- <div class="lecturer_only" style="display: flex; float: right;">
+      <p> Lecturers Only <a href="{% url 'lecture:lv' %}" class="btn">Staff Page</a> <a href="{% url 'lecture:login' %}" class="btn">Login</a> <a href="{% url 'lecture:lecReg' %}" class="btn">Register</a> </p>
+    </div><br> -->
+
+
+
+<div class="search">
+            <form method="GET" action="{% url 'lecture:search' %}">
+                <input type="text" name="query" value="{{request.GET.query}}" placeholder="search lecturer name or posiion...">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+        <br>
+
+</nav>
+<center>
+{% if messages %}
+        {% for message in messages %}
+      <div class="alert alert-{{message.tag}}">{{message}}</div>
+        {% endfor %}
+        {% endif %}
+</center>
+
+<body>
+    <div class="container">
+
+        
+
+
+       {% for profile in page_obj %}
+        <div class="card">
+            <div class="imgBox">
+                <a href="{% url 'lecture:detPage' profile.slug %}">
+                    <img src="{{profile.pics.url}}"></a>
+            </div>
+            <h2><span>{{profile.degree}}</span> {{profile.user.get_full_name}}</h2>
+            <p style="font-size: 13px"><b>Gender</b> {{profile.gender}}</p><br>
+            <center><a href="{% url 'lecture:detPage' profile.slug %}" class="btn">Choose Lecturer</a></center>
+            
+        </div>
+        {% endfor %}
+
+    </div>
+
+  
+    <div class="pagination">
+        <ul class="page">
+            {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}"><li>Previous</li>
+            </a>
+            {% endif %}
+
+            {% for num_page in page_obj.paginator.page_range %}
+            {% if page_obj.number == num_page %}
+
+            <a href="?page={{ num_page }}">
+                <li>{{ num_page }}</li>
+            </a>
+            {% endif %}
+            {% endfor %}
+
+            
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">
+                <li>Next</li></a>
+            
+            {% endif %}
+        </ul>
+    </div>
+    </body>
+
+    <script src="{% static 'js/jquery.js' %}"></script>
+<script type="text/javascript">
+
+    var Timing = 2000;
+    setTimeout(function(){
+        $(".alert").fadeOut('fast');
+    }, Timing);
+
+</script>
+</html>
+
+
