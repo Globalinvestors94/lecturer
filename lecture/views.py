@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from .forms import (PYT,SignUpForm,MoreSignUpForm,LoginForm,AS,QP,
-	SearchForm,AA,QuizAA,QS,PinForm, PinFilter,Scratch_Pin_Form,EmailForm)
+	SearchForm,AA,QuizAA,QS,PinForm, PinFilter,Scratch_Pin_Form,EmailForm,
+	Lec_Pin)
 from .models import (Profile,Lecturer_View,Assignment_Answers,Quiz_Answers,Scratch_Pin)
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -17,8 +18,24 @@ from django.core.mail import EmailMessage
 from django.http import HttpResponse
 from django.utils.http import url_has_allowed_host_and_scheme
 
+
+def LandPage(request):
+	return render(request, 'folder/landpage.html')
+
+def LecturePin(request):
+	form = Lec_Pin(request.POST)
+	if form.is_valid():
+		pin = form.cleaned_data.get("pin")
+		if pin == "deptlecture":
+			return redirect("lecture:login")
+		else:
+			messages.info(request,"Incorrect Pin, Try Again")	
+			return redirect("lecture:lp")
+	return render(request, 'folder/lecture_pin.html',{'form':form})
+
+
 @PinCode
-def HomePage(request):
+def StudentPage(request):
 	profile = Profile.objects.all()
 	paginator = Paginator(profile,12)
 
@@ -74,7 +91,7 @@ def Task_View(request, slug):
     		form_qus = Assignment_Answers(question=task, name=name, reg_number=reg_number, ass_upload=ass_upload)
     		form_qus.save()
     		messages.info(request,f"{name} with registration number {reg_number}, your assignment has been submitted")
-    		return redirect('lecture:home')
+    		return redirect('lecture:student')
 
 
     else:
@@ -92,7 +109,7 @@ def Task_View(request, slug):
     		form_qus = Quiz_Answers(question=task, name=name, reg_number=reg_number, quiz_upload=quiz_upload)
     		form_qus.save()
     		messages.info(request,f"{name} with registration number {reg_number}, your quiz has been submitted")
-    		return redirect('lecture:home')
+    		return redirect('lecture:student')
 
     else:
     	form_q = QuizAA()
