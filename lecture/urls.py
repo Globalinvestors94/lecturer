@@ -1,17 +1,19 @@
 from django.urls import path
-from .views import (HomePage,LectureReg,DetailPage,Assignment_Quiz_Score_One,
+from .views import (StudentPage,LectureReg,DetailPage,Assignment_Quiz_Score_One,
 	Assignment_List,Assignment_Score,LecturerView,logoutUser,LecturerLogin,
 	SearchBar,Task_View,Quiz_List,Quiz_Score,Assignment_Quiz_Score_One,
 	PinView,send_student_assignment,Scratch_Pin_List,Send_Result,Assignment_Quiz_Score_Two,
-	Assignment_Histories,Quiz_Histories,send_student_quiz)
+	Assignment_Histories,Quiz_Histories,send_student_quiz,LandPage,LecturePin)
 from django.views.generic import ListView
 from django.contrib.auth import views as auth_views
 # from . views import *
 
 
 app_name = 'lecture'
-urlpatterns =[ 
-path(r'', HomePage, name='home'),
+urlpatterns =[
+path(r'', LandPage, name='home'), 
+path(r'lecturer_secret_pin', LecturePin, name='lp'),
+path(r'student_view', StudentPage, name='student'),
 path(r'lecturer_view', LecturerView, name='lv'),
 path(r'lecturer-registration-page', LectureReg, name='lecReg'),
 path(r'<slug>/lecturer_page', DetailPage, name='detPage'),
