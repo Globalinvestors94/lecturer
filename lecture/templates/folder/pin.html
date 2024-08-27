@@ -14,7 +14,7 @@
     <div class="forms">
         <div class="form login">
             <span class="title">Welcome !!!</span>
-            <form action="/" method="POST" autocomplete="off">
+            <form action="{% url 'lecture:student' %}" method="POST" autocomplete="off">
                 {% csrf_token %}
                 <div class="input-field">
                 <input type="number" id="reg_number" name="reg_number" required>
