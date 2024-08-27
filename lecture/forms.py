@@ -4,6 +4,9 @@ from django.contrib.auth.models import User
 from .models import Profile,Lecturer_View,Assignment_Answers,Quiz_Answers, Scratch_Pin
 
 
+class Lec_Pin(forms.Form):
+    pin = forms.CharField(max_length=20)
+
 class PYT(forms.ModelForm):
     class Meta:
         model = Lecturer_View
